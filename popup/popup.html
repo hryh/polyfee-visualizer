@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fee Lens</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  body { width: 290px; background: #151a23; color: #e8ecf3; font-size: 13px; padding: 13px; }
+  h1 { font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+       color: #93a1b5; font-weight: 700; margin-bottom: 11px; }
+  .card { background: #101720; border: 1px solid #263142; border-radius: 10px;
+          padding: 11px; margin-bottom: 10px; }
+  .big { font-size: 24px; font-weight: 700; letter-spacing: -.02em; color: #ff8f6b;
+         font-variant-numeric: tabular-nums; }
+  .lbl { font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em;
+         color: #7f8ea5; font-weight: 600; margin-bottom: 3px; }
+  .sub { font-size: 11px; color: #8b98ab; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 8px; }
+  label.f { display: block; }
+  label.f span { display: block; font-size: 10px; text-transform: uppercase;
+                 letter-spacing: .06em; color: #7f8ea5; font-weight: 600; margin-bottom: 3px; }
+  input, select { width: 100%; background: #101720; border: 1px solid #2a3443; border-radius: 7px;
+                  color: #e8ecf3; padding: 6px 8px; font-size: 12.5px; outline: none;
+                  font-variant-numeric: tabular-nums; }
+  input:focus, select:focus { border-color: #3d7dff; }
+  .row { display: flex; justify-content: space-between; align-items: center;
+         padding: 5px 0; border-top: 1px solid #1f2a38; font-size: 12px; }
+  .row:first-of-type { border-top: 0; }
+  .row .k { color: #8b98ab; font-size: 11.5px; }
+  .row .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+  button { width: 100%; background: #1b2330; border: 1px solid #2a3443; color: #9fb0c7;
+           border-radius: 8px; padding: 7px; font-size: 11.5px; font-weight: 600;
+           cursor: pointer; }
+  button:hover { background: #222c3b; color: #e8ecf3; }
+  .foot { font-size: 10px; color: #63718a; line-height: 1.45; margin-top: 9px; }
+  a { color: #6f9dff; }
+</style>
+</head>
+<body>
+  <h1>Fee Lens for Polymarket</h1>
+
+  <div class="card">
+    <div class="lbl">Fees observed on this browser</div>
+    <div class="big" id="total">$0.00</div>
+    <div class="sub" id="tallySub">No trades seen yet.</div>
+  </div>
+
+  <div class="card">
+    <div class="lbl" style="margin-bottom:7px">Quick calculator</div>
+    <div class="grid">
+      <label class="f"><span>Category</span>
+        <select id="cat">
+          <option value="0.07">Crypto · 7%</option>
+          <option value="0.05" selected>Sports / Econ / Culture / Weather · 5%</option>
+          <option value="0.04">Politics / Finance / Tech · 4%</option>
+          <option value="0.03">Sports (v2 schedule) · 3%</option>
+          <option value="0">Geopolitics · no fee</option>
+        </select>
+      </label>
+      <label class="f"><span>Price (¢)</span>
+        <input id="price" type="text" inputmode="decimal" value="50">
+      </label>
+    </div>
+    <label class="f" style="margin-bottom:9px"><span>Stake ($)</span>
+      <input id="stake" type="text" inputmode="decimal" value="100">
+    </label>
+    <div class="row"><span class="k">Shares</span><span class="v" id="oShares">—</span></div>
+    <div class="row"><span class="k">Taker fee</span><span class="v" id="oFee">—</span></div>
+    <div class="row"><span class="k">Effective price</span><span class="v" id="oEff">—</span></div>
+    <div class="row"><span class="k">Break-even odds</span><span class="v" id="oBe">—</span></div>
+    <div class="row"><span class="k">Fee / stake</span><span class="v" id="oPct">—</span></div>
+  </div>
+
+  <button id="reset">Reset tally</button>
+
+  <p class="foot">
+    Rates shown here are a convenience default. On a market page the panel always
+    reads that market's live <code>feeSchedule</code> from Polymarket's public API.
+    Everything stays in this browser.
+  </p>
+
+  <script src="../src/fees.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

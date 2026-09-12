@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Fee Lens for Polymarket",
+  "version": "1.0.0",
+  "description": "Shows the exact taker fee, effective price and break-even for every Polymarket trade, before you place it.",
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://gamma-api.polymarket.com/*",
+    "https://clob.polymarket.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://polymarket.com/*", "https://*.polymarket.com/*"],
+      "js": ["src/hook.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://polymarket.com/*", "https://*.polymarket.com/*"],
+      "js": ["src/fees.js", "src/market.js", "src/panel.js", "src/content.js"],
+      "world": "ISOLATED",
+      "run_at": "document_idle"
+    }
+  ]
+}
